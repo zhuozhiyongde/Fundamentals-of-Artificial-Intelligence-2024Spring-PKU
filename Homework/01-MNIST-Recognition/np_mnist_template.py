@@ -166,4 +166,4 @@ if __name__ == "__main__":
         y_pred = net.forward(X_val)
         val_loss = np.mean(loss_fn(y_val, y_pred))
         val_acc = np.mean(np.argmax(y_pred, axis=-1) == np.argmax(y_val, axis=-1))
-        print(f"epoch: {epoch}, val_loss: {val_loss:.4f}, val_acc: {val_acc:.4f}")
+        print(f"epoch: {epoch+1}, val_loss: {val_loss:.4f}, val_acc: {val_acc:.4f}")
