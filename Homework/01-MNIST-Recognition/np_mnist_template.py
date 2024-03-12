@@ -10,9 +10,7 @@
 # 作业内容：更改loss函数、网络结构、激活函数，完成训练MLP网络识别手写数字MNIST数据集
 
 import numpy as np
-
 from tqdm import tqdm
-
 
 # 加载数据集,numpy格式
 X_train = np.load("./mnist/X_train.npy")  # (60000, 784), 数值在0.0~1.0之间

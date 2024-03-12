@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+# @Author  :   Arthals
+# @File    :   mnist_mlp_template.py
+# @Time    :   2024/03/11 23:37:57
+# @Contact :   zhuozhiyongde@126.com
+# @Software:   Visual Studio Code
+
+
 # 第一课作业
 # 使用Pytorch训练MNIST数据集的MLP模型
 # 1. 运行、阅读并理解mnist_mlp_template.py,修改网络结构和参数，增加隐藏层，观察训练效果
@@ -5,15 +14,14 @@
 # 要求：10个epoch后测试集准确率达到98%以上
 
 # 导入相关的包
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
-
-import numpy as np
-
 from matplotlib import pyplot as plt
+from torch.utils.data import DataLoader, Dataset
+from tqdm import tqdm
 
 # 加载数据集,numpy格式
 X_train = np.load("./mnist/X_train.npy")
@@ -59,7 +67,9 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         self.fc1 = nn.Linear(784, 800)
+        self.dropout1 = nn.Dropout(0.5)
         self.fc2 = nn.Linear(800, 800)
+        self.dropout2 = nn.Dropout(0.5)
         self.fc3 = nn.Linear(800, 10)
 
     def forward(self, x):
@@ -67,7 +77,11 @@ class Net(nn.Module):
 
         x = F.relu(self.fc1(x))
 
+        x = self.dropout1(x)
+
         x = F.relu(self.fc2(x))
+
+        x = self.dropout2(x)
 
         x = self.fc3(x)
 
@@ -80,7 +94,7 @@ model.to(device="cuda")
 # 定义损失函数
 criterion = nn.CrossEntropyLoss()
 # 定义优化器
-optimizer = optim.SGD(model.parameters(), lr=0.001)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # 定义数据加载器
 train_loader = DataLoader(MNISTDataset(X_train, y_train), batch_size=64, shuffle=True)
@@ -91,8 +105,10 @@ test_loader = DataLoader(MNISTDataset(X_test, y_test), batch_size=64, shuffle=Tr
 EPOCHS = 10
 
 history = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
+
 # 训练模型
 for epoch in range(EPOCHS):
+    print(f"\nTraining Epoch:{epoch+1}")
     # 训练模式
     model.train()
 
@@ -100,80 +116,51 @@ for epoch in range(EPOCHS):
     acc_train = []
     correct_train = 0
 
-    for batch_idx, (data, target) in enumerate(train_loader):
+    # 加入 tqdm 进度条
+    train_loader_bar = tqdm(train_loader, desc="Training".ljust(20),bar_format="{l_bar:20}{bar:40}{r_bar}")
+    for batch_idx, (data, target) in enumerate(train_loader_bar):
         data, target = data.to(device="cuda"), target.to(device="cuda")
-        # 梯度清零
-        optimizer.zero_grad()
-        # 前向计算
-        output = model(data)
-        # 计算损失
-        loss = criterion(output, target)
-        # 反向传播
-        loss.backward()
-        # 参数更新
-        optimizer.step()
-        # 打印训练信息
-        if batch_idx % 100 == 0:
-            print(
-                "Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}".format(
-                    epoch,
-                    batch_idx * len(data),
-                    len(train_loader.dataset),
-                    100.0 * batch_idx / len(train_loader),
-                    loss.item(),
-                )
-            )
+        optimizer.zero_grad()  # 梯度清零
+        output = model(data)  # 前向计算
+        loss = criterion(output, target)  # 计算损失
+        loss.backward()  # 反向传播
+        optimizer.step()  # 参数更新
 
         loss_train.append(loss.item())
-        pred = output.max(1, keepdim=True)[
-            1
-        ]  # get the index of the max log-probability
-
+        pred = output.max(1, keepdim=True)[1]  # 获取最大对数概率的索引
         correct = pred.eq(target.view_as(pred)).sum().item()
         correct_train += correct
         acc_train.append(100.0 * correct / len(data))
 
+        # 更新 tqdm 进度条的描述
+        train_loader_bar.set_description(f"Loss: {loss.item():.6f}".ljust(20))
+
     history["train_loss"].append(np.mean(loss_train))
     history["train_acc"].append(np.mean(acc_train))
-    print(
-        "Train set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)".format(
-            np.mean(loss_train),
-            correct_train,
-            len(train_loader.dataset),
-            100.0 * correct_train / len(train_loader.dataset),
-        )
-    )
 
-    # 测试模式
+    # 验证模式
     model.eval()
     val_loss = []
     correct = 0
-    with torch.no_grad():
-        for data, target in val_loader:
-            data, target = data.to(device="cuda"), target.to(device="cuda")
 
+    val_loader_bar = tqdm(val_loader, desc="Validation".ljust(20),bar_format="{l_bar}{bar:40}{r_bar}")
+    with torch.no_grad():
+        for data, target in val_loader_bar:
+            data, target = data.to(device="cuda"), target.to(device="cuda")
             output = model(data)
-            val_loss.append(criterion(output, target).item())  # sum up batch loss
-            pred = output.max(1, keepdim=True)[
-                1
-            ]  # get the index of the max log-probability
+            val_loss.append(criterion(output, target).item())
+            pred = output.max(1, keepdim=True)[1]
             correct += pred.eq(target.view_as(pred)).sum().item()
+            val_loader_bar.set_description(
+                f"Val acc: {100.0 * correct / len(val_loader.dataset):.2f}%".ljust(20)
+            )
 
     val_loss = np.mean(val_loss)
-
-    print(
-        "Validation set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)".format(
-            val_loss,
-            correct,
-            len(val_loader.dataset),
-            100.0 * correct / len(val_loader.dataset),
-        )
-    )
-
     history["val_loss"].append(val_loss)
     history["val_acc"].append(100.0 * correct / len(val_loader.dataset))
 
-# 画图
+
+# 画图部分保持不变
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
 plt.plot(history["train_loss"], label="train_loss")
@@ -182,5 +169,6 @@ plt.legend()
 plt.subplot(1, 2, 2)
 plt.plot(history["train_acc"], label="train_acc")
 plt.plot(history["val_acc"], label="val_acc")
+plt.ylim(20, 100)
 plt.legend()
-plt.show()
+plt.savefig("loss_acc.png")

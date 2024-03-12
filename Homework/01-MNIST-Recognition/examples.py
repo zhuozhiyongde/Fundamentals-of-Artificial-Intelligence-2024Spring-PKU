@@ -1,8 +1,7 @@
 # 深度学习第一课课上配套代码
 # 导入Pytorch库
 import torch
-from torch.nn import Linear, ReLU, Softmax
-from torch.nn import Sequential
+from torch.nn import Linear, ReLU, Sequential, Softmax
 
 torch.manual_seed(99999)
 
