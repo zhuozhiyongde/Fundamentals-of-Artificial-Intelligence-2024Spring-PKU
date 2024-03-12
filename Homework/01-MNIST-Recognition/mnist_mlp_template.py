@@ -66,25 +66,24 @@ class MNISTDataset(Dataset):  # 继承Dataset类
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(784, 800)
-        self.dropout1 = nn.Dropout(0.5)
-        self.fc2 = nn.Linear(800, 800)
-        self.dropout2 = nn.Dropout(0.5)
-        self.fc3 = nn.Linear(800, 10)
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=5)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=5)
+        self.dropout1 = nn.Dropout(0.2)
+        self.fc3 = nn.Linear(1024, 128)
+        self.dropout2 = nn.Dropout(0.2)
+        self.fc4 = nn.Linear(128, 10)
 
     def forward(self, x):
-        x = x.view(-1, 784)
-
-        x = F.relu(self.fc1(x))
-
+        x = x.view(-1, 1, 28, 28)
+        # print(x.shape)
+        x = F.relu(F.max_pool2d(self.conv1(x), 2))
+        x = F.relu(F.max_pool2d(self.conv2(x), 2))
         x = self.dropout1(x)
-
-        x = F.relu(self.fc2(x))
-
+        x = x.view(-1, 1024)
+        x = F.relu(self.fc3(x))
         x = self.dropout2(x)
-
-        x = self.fc3(x)
-
+        x = self.fc4(x)
+        # print(x.shape)
         return F.log_softmax(x, dim=1)
 
 
@@ -117,7 +116,9 @@ for epoch in range(EPOCHS):
     correct_train = 0
 
     # 加入 tqdm 进度条
-    train_loader_bar = tqdm(train_loader, desc="Training".ljust(20),bar_format="{l_bar:20}{bar:40}{r_bar}")
+    train_loader_bar = tqdm(
+        train_loader, desc="Training".ljust(20), bar_format="{l_bar:20}{bar:40}{r_bar}"
+    )
     for batch_idx, (data, target) in enumerate(train_loader_bar):
         data, target = data.to(device="cuda"), target.to(device="cuda")
         optimizer.zero_grad()  # 梯度清零
@@ -143,7 +144,9 @@ for epoch in range(EPOCHS):
     val_loss = []
     correct = 0
 
-    val_loader_bar = tqdm(val_loader, desc="Validation".ljust(20),bar_format="{l_bar}{bar:40}{r_bar}")
+    val_loader_bar = tqdm(
+        val_loader, desc="Validation".ljust(20), bar_format="{l_bar}{bar:40}{r_bar}"
+    )
     with torch.no_grad():
         for data, target in val_loader_bar:
             data, target = data.to(device="cuda"), target.to(device="cuda")
