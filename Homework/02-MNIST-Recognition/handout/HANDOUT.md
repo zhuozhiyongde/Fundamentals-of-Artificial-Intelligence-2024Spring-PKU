@@ -1,4 +1,4 @@
-# Homework 1 MNIST Recognition
+# Homework 2 MNIST Recognition
 
 ## 作业 1：用 numpy 实现训练 MLP 网络识别手写数字 MNIST 数据集
 

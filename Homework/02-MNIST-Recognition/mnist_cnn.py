@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 # @Author  :   Arthals
-# @File    :   mnist_mlp_template.py
+# @File    :   mnist_cnn.py
 # @Time    :   2024/03/11 23:37:57
 # @Contact :   zhuozhiyongde@126.com
 # @Software:   Visual Studio Code

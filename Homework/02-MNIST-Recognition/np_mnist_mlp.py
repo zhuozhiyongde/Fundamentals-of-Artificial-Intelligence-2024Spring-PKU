@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 # @Author  :   Arthals
-# @File    :   np_mnist_template.py
+# @File    :   np_mnist_mlp.py
 # @Time    :   2024/03/10 04:26:45
 # @Contact :   zhuozhiyongde@126.com
 # @Software:   Visual Studio Code
 
 
 # 作业内容：更改loss函数、网络结构、激活函数，完成训练MLP网络识别手写数字MNIST数据集
+
+# 训练结果：epoch: 10, val_loss: 0.1605, val_acc: 0.9543
 
 import numpy as np
 from tqdm import tqdm
