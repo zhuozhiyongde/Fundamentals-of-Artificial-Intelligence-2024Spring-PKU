@@ -1,7 +1,7 @@
 # Homework 02 MNIST-Recognition
 
 <center>
-  北京大学 2024 春季人工智能基础第一次课程作业
+  北京大学 2024 春季人工智能基础第二次课程作业
 </center>
 
 ---
