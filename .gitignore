@@ -1,2 +1,3 @@
 **/*.npy
-PPT/
+PPT*
+**/data
