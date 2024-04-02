@@ -22,27 +22,36 @@ num_epochs = 0
 
 # 定义数据预处理方式
 # 普通的数据预处理方式
-transform = transforms.Compose([
-    transforms.ToTensor(),])
+transform = transforms.Compose(
+    [
+        transforms.ToTensor(),
+    ]
+)
 # 数据增强的数据预处理方式
 # transform = transforms.Compose(
 
 
-
 # 定义数据集
-train_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
-test_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
+train_dataset = torchvision.datasets.CIFAR10(
+    root="./data", train=True, download=True, transform=transform
+)
+test_dataset = torchvision.datasets.CIFAR10(
+    root="./data", train=False, download=True, transform=transform
+)
 
 # 定义数据加载器
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
+
 # 定义模型
 class Net(nn.Module):
-    '''
+    """
     定义卷积神经网络,3个卷积层,2个全连接层
-    '''
+    """
+
     pass
+
 
 # 实例化模型
 model = Net()
@@ -54,13 +63,13 @@ except:
     use_mlu = False
 
 if use_mlu:
-    device = torch.device('mlu:0')
+    device = torch.device("mlu:0")
 else:
     print("MLU is not available, use GPU/CPU instead.")
     if torch.cuda.is_available():
-        device = torch.device('cuda:0')
+        device = torch.device("cuda:0")
     else:
-        device = torch.device('cpu')
+        device = torch.device("cpu")
 
 model = model.to(device)
 
@@ -89,8 +98,16 @@ for epoch in range(num_epochs):
 
         # 打印训练信息
         if (i + 1) % 100 == 0:
-            print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}, Accuracy: {:.2f}%'
-                    .format(epoch + 1, num_epochs, i + 1, len(train_loader), loss.item(), accuracy.item() * 100))
+            print(
+                "Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}, Accuracy: {:.2f}%".format(
+                    epoch + 1,
+                    num_epochs,
+                    i + 1,
+                    len(train_loader),
+                    loss.item(),
+                    accuracy.item() * 100,
+                )
+            )
 
     # 测试模式
     model.eval()
@@ -106,4 +123,8 @@ for epoch in range(num_epochs):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-        print('Test Accuracy of the model on the 10000 test images: {} %'.format(100 * correct / total))
+        print(
+            "Test Accuracy of the model on the 10000 test images: {} %".format(
+                100 * correct / total
+            )
+        )
