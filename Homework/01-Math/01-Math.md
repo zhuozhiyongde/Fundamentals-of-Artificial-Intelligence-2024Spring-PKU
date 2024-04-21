@@ -100,7 +100,7 @@ $$
 > 求最优 ($w^{*},b^{*}$) 使得 $f(x_i)$ 与 $y_i$ 之间的均方误差最小：
 >
 > $$
-> (w^*,b^*)=arg\min_{(w,b)}\sum_{i=1}^n(f(x_i)-y_i)^2
+> (w^*,b^*)=\arg\min_{(w,b)}\sum_{i=1}^n(f(x_i)-y_i)^2
 > $$
 >
 > 并解释 $(w^*,b^*)$ 何时有 closed form 解，何时没有 closed form 解。
@@ -131,8 +131,8 @@ $$
 
 $$
 \begin{aligned}
-\hat{\beta} &= \mathop{arg}\min_{\beta} \frac{1} {n} \sum_{i=1}^{n} \; ( X_{i} \beta-Y_{i} )^{2} \\
-&= \mathop{arg}\min_{\beta} \frac{1} {n} ( \mathbf{A} \beta-\mathbf{Y} )^{\mathrm{T}} ( \mathbf{A} \beta-\mathbf{Y} )
+\hat{\beta} &= \arg \min_{\beta} \frac{1} {n} \sum_{i=1}^{n} \; ( X_{i} \beta-Y_{i} )^{2} \\
+&= \arg \min_{\beta} \frac{1} {n} ( \mathbf{A} \beta-\mathbf{Y} )^{\mathrm{T}} ( \mathbf{A} \beta-\mathbf{Y} )
 \end{aligned}
 $$
 
@@ -166,8 +166,8 @@ $$
 
 这两个问题（惩罚项）解，具有如下特征：
 
--   **L1 岭回归的正则化项** ：$ \lambda \sum\_{j=1}^{p} \beta_j^2 $，这是一个 L2 范数，它对大的系数施加更大的惩罚，导致系数平滑地趋近于零。有些 $w$ 更小。
--   **L2 套索回归的正则化项** ：$ \lambda \sum\_{j=1}^{p} |\beta_j| $，这是一个 L1 范数，它对所有系数施加相同的惩罚，这会导致一些系数直接为零，从而产生一个稀疏解。非零 $w$ 更少。
+-   **L1 岭回归的正则化项** ：$\lambda \sum_{j=1}^{p} \beta_j^2 $，这是一个 L2 范数，它对大的系数施加更大的惩罚，导致系数平滑地趋近于零。有些 $w$ 更小。
+-   **L2 套索回归的正则化项** ：$\lambda \sum_{j=1}^{p} |\beta_j| $，这是一个 L1 范数，它对所有系数施加相同的惩罚，这会导致一些系数直接为零，从而产生一个稀疏解。非零 $w$ 更少。
 
 ## 第七问
 
@@ -180,8 +180,8 @@ $$
 
 ### Loss function
 
--   线性回归：$ \frac{1}{n} \sum\_{i=1}^{n} (f(x_i)-y_i)^2 $，也即使用均方误差 MSE 作为损失函数。主要是衡量预测值与真实值之间的差异。
--   逻辑回归：$ -\frac{1}{n} \sum\_{i=1}^{n} y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i)) $，也即使用交叉熵 Cross Entropy 作为损失函数。主要是衡量预测分布与真实分布之间的差异。
+-   线性回归：$\frac{1}{n} \sum\_{i=1}^{n} (f(x_i)-y_i)^2 $，也即使用均方误差 MSE 作为损失函数。主要是衡量预测值与真实值之间的差异。
+-   逻辑回归：$-\frac{1}{n} \sum\_{i=1}^{n} y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i)) $，也即使用交叉熵 Cross Entropy 作为损失函数。主要是衡量预测分布与真实分布之间的差异。
 
 ### Optimization solution
 
