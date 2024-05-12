@@ -24,12 +24,12 @@ from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
 # 加载数据集,numpy格式
-X_train = np.load("./mnist/X_train.npy")
-y_train = np.load("./mnist/y_train.npy")
-X_val = np.load("./mnist/X_val.npy")
-y_val = np.load("./mnist/y_val.npy")
-X_test = np.load("./mnist/X_test.npy")
-y_test = np.load("./mnist/y_test.npy")
+X_train = np.load("./data/X_train.npy")
+y_train = np.load("./data/y_train.npy")
+X_val = np.load("./data/X_val.npy")
+y_val = np.load("./data/y_val.npy")
+X_test = np.load("./data/X_test.npy")
+y_test = np.load("./data/y_test.npy")
 
 
 # 定义MNIST数据集类

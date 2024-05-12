@@ -12,16 +12,16 @@ from tqdm  import tqdm
 
 
 # 加载数据集,numpy格式
-X_train = np.load('./mnist/X_train.npy') # (60000, 784), 数值在0.0~1.0之间
-y_train = np.load('./mnist/y_train.npy') # (60000, )
+X_train = np.load('./data/X_train.npy') # (60000, 784), 数值在0.0~1.0之间
+y_train = np.load('./data/y_train.npy') # (60000, )
 y_train = np.eye(10)[y_train] # (60000, 10), one-hot编码
 
-X_val = np.load('./mnist/X_val.npy') # (10000, 784), 数值在0.0~1.0之间
-y_val = np.load('./mnist/y_val.npy') # (10000,)
+X_val = np.load('./data/X_val.npy') # (10000, 784), 数值在0.0~1.0之间
+y_val = np.load('./data/y_val.npy') # (10000,)
 y_val = np.eye(10)[y_val] # (10000, 10), one-hot编码
 
-X_test = np.load('./mnist/X_test.npy') # (10000, 784), 数值在0.0~1.0之间
-y_test = np.load('./mnist/y_test.npy') # (10000,)
+X_test = np.load('./data/X_test.npy') # (10000, 784), 数值在0.0~1.0之间
+y_test = np.load('./data/y_test.npy') # (10000,)
 y_test = np.eye(10)[y_test] # (10000, 10), one-hot编码
 
 
