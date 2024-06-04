@@ -1,0 +1,30 @@
+作业说明：
+
+
+1. 样例代码：
+	
+	C++的代码目录下包含5个文件夹：algorithm, interface, problem, utils, jsoncpp
+	【interface】
+		game_state.hpp是多智能体游戏状态接口，实现此接口可使用搜索算法求解游戏
+    【algorithm】
+		general_game_search.hpp实现了一般博弈的搜索求解，求解双人零和博弈时，此算法与MinMax相同（供参考学习）
+		alpha_beta_search.hpp实现了alpha-beta剪枝算法，用于求解双人零和博弈（供参考学习）
+		
+		monte_carlo_tree_search.hpp实现了蒙特卡洛树搜索算法(UCT)，用于求解一般的博弈（作业涉及此算法）
+	【problem】
+		tictactoe.hpp实现了3*3井字棋和4*4井字棋的环境
+		hex.hpp实现了棋盘大小为N*N的六边形棋的环境（N可以自行选择）
+	【utils】
+		search_tree.hpp提供了建立搜索树的工具类
+		selection.hpp提供了选择算法，MCTS实现中用到了最大选择MaxSelection
+		random_variables.hpp提供了随机变量工具类
+		union_find_set.hpp提供了并查集工具类（用于判断Hex同色棋块的连通性）
+
+	tictactoe_search.cpp实现了alpha-beta剪枝求解3*3井字棋（4*4可求解但用时较长），输出双方最优决策序列。（供参考学习）
+	hex_mcts_test.cpp实现了蒙特卡洛树搜索算法模拟11*11的六边形棋对局（供参考学习）
+	
+
+2. 任务描述
+	
+	【任务0：补全代码】
+		补全algorithm中的算法代码，填写实验报告（python C++任选其一）
