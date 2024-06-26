@@ -1,3 +1,4 @@
 **/*.npy
 PPT*
 **/data
+!Homework/09-House-Price-Prediction/handout/data
