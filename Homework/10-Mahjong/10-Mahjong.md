@@ -369,9 +369,9 @@ for e in range(30):
 
 ### 天梯排名
 
-天梯得分：1182.9
+天梯得分：1203.74
 
-天梯排名：30/672（4.5%）
+天梯排名：3/672（0.45%）
 
 ![botzone_rank_score](10-Mahjong.assets/botzone_rank_score.png)
 
