@@ -20,4 +20,5 @@ PPT 因版权原因不提供，请在上课时自行下载。
 
 ## 感谢
 
-[weekgoodday / Intro2ai](https://github.com/weekgoodday/Intro2ai)
+-   [weekgoodday / Intro2ai](https://github.com/weekgoodday/Intro2ai)
+-   [d2l-ai / d2l-zh](https://github.com/d2l-ai/d2l-zh)
