@@ -318,7 +318,7 @@ class FeatureAgent(MahjongGBAgent):
             self.shownTiles[self.curTile] += 1
             # 记录全局信息
             # 时序衰减
-            self.obs[self.OFFSET_OBS.PLAY + p, :] *= 0.9
+            # self.obs[self.OFFSET_OBS.PLAY + p, :] *= 0.9
             self.obs[self.OFFSET_OBS.PLAY + p, self.OFFSET_TILE[self.curTile]] += 1
 
             if p == 3:

@@ -41,8 +41,8 @@ def obs2response(model, obs):
 
 if __name__ == "__main__":
     model = SelfVecModel(obs_dim=FeatureAgent.OBS_SIZE, vec_dim=FeatureAgent.VEC_SIZE)
-    data_dir = "/data/vec-fix-act-128.pkl"
-    # data_dir = "./vec-fix-act-128.pkl"
+    data_dir = "/data/vec-fix-128-no-decay.pkl"
+    # data_dir = "./vec-fix-128-no-decay.pkl"
     model.load_state_dict(torch.load(data_dir, map_location=torch.device("cpu")))
     input()  # 1
     while True:
