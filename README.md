@@ -1,6 +1,6 @@
 # Fundamentals-Of-Artificial-Intelligence-2024Spring-PKU
 
-2023 年春季学期北京大学人工智能基础课程的课程资料，仉尚航老师班。
+2024 年春季学期北京大学人工智能基础课程的课程资料，仉尚航老师班。
 
 包括：
 
