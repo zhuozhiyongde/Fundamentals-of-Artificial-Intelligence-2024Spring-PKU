@@ -369,13 +369,15 @@ for e in range(30):
 
 ### 天梯排名
 
-天梯得分：1203.74
+天梯得分：1237.24
 
-天梯排名：3/672（0.45%）
+天梯排名：1/672（0.1%）
 
 ![botzone_rank_score](10-Mahjong.assets/botzone_rank_score.png)
 
 ![botzone_rank](10-Mahjong.assets/botzone_rank.png)
+
+> 值得一提的是，本 bot 也是前 30 唯一一个开源的 : )
 
 ## 启示与收获
 
