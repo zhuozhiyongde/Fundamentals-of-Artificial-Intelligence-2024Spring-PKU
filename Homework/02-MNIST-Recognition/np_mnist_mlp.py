@@ -57,7 +57,8 @@ def softmax_prime(x):
     """
     softmax函数的导数
     """
-    return softmax(x) * (1.0 - softmax(x))
+    s = np.exp(x) / np.exp(x).sum(axis=-1, keepdims=True)
+    return np.diag(s) - np.outer(s, s)
 
 
 # 定义损失函数
