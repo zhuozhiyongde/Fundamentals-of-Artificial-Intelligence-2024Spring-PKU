@@ -367,6 +367,8 @@ $$
 P_{vocab}=Softmax(W_out*Out_n+b_out)
 $$
 
+> 如果你想要了解更多有关 Attention 机制的前沿技术，可以参考这篇质量很高的 [综述](https://k1tyoo.ink/blog/dl/trm)。
+
 ## 预训练模型（Pre-trained Models）
 
 预训练模型是一种强大的技术，用于在 **无标签数据** 上学习 **通用语言表示**，从而提高 NLP 任务的性能。
